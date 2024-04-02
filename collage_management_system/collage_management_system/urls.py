@@ -70,8 +70,8 @@ urlpatterns = [
                    # this is HOD panel url
 
                    path('staff/home',staff_views.HOME,name='staff_home'),
-                   path('staff/notification',staff_views.NOTIFICATION,name='notification')
-
+                   path('staff/notification',staff_views.NOTIFICATION,name='notification'),
+                   path('staff/mark_as_done/<str:status>', staff_views.STAFF_NOTIFICATION_MARK_AS_DONE, name='staff_notification_mark_as_done'),
 
 
 
