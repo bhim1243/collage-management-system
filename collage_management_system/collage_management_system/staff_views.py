@@ -12,7 +12,7 @@ def NOTIFICATION(request):
         staff_id = staff.id
         notifications = Staff_Notification.objects.filter(staff_id=staff_id)
         context = {'notifications':notifications}
-    return render(request, 'staff/notification.html', context)
+    return render(request,'staff/notification.html', context)
 
 
 def STAFF_NOTIFICATION_MARK_AS_DONE(request,status):
