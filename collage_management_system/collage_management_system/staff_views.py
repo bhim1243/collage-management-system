@@ -20,3 +20,8 @@ def STAFF_NOTIFICATION_MARK_AS_DONE(request,status):
     notification.status = 1
     notification.save()
     return redirect('notification')
+
+
+
+def STAFF_APPLY_LEAVE(request):
+    return render(request, 'staff/apply_leave.html')
