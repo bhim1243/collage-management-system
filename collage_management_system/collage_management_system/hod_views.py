@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
-from collage_management_app.models import Course, Session_year, CustomUser, Student,Staff,Subject,Staff_Notification
+from collage_management_app.models import Course, Session_year, CustomUser, Student,Staff,Subject,Staff_Notification,Staff_Leave
 from django.contrib import messages
 
 @login_required(login_url='/')
@@ -407,7 +407,7 @@ def ADD_SESSION(request):
          return  redirect('add_session')
      return render(request,'hod/add_session.html')
 
-
+@login_required(login_url='/')
 def VIEW_SESSION(request):
 
     sessions =Session_year.objects.all()
@@ -416,13 +416,13 @@ def VIEW_SESSION(request):
      }
     return render(request ,'hod/view_session.html' ,context)
 
-
+@login_required(login_url='/')
 def EDIT_SESSION(request, id):
     sessions= Session_year.objects.get(id=id)
     context = {'sessions': sessions,}
     return render(request, 'hod/edit_session.html', context)
 
-
+@login_required(login_url='/')
 def UPDATE_SESSION(request):
     if request.method =='POST':
         session_id = request.POST.get('session_id')
@@ -440,14 +440,14 @@ def UPDATE_SESSION(request):
 
     return redirect('view_session')
 
-
+@login_required(login_url='/')
 def DELETE_SESSION(request,id):
     session =Session_year.objects.get(id=id)
     session.delete()
     messages.success(request, 'Session Are Successfully Delete ! ')
     return  redirect('view_session')
 
-
+@login_required(login_url='/')
 def STAFF_SEND_NOTIFICATION(request):
     staff = Staff.objects.all()
     see_notification = Staff_Notification.objects.all().order_by('-id')
@@ -457,6 +457,7 @@ def STAFF_SEND_NOTIFICATION(request):
      }
     return render(request,'hod/staff_notification.html',context)
 
+@login_required(login_url='/')
 def SAVE_STAFF_NOTIFICATION(request):
     if request.method == 'POST':
         staff_id = request.POST.get('staff_id')
@@ -470,3 +471,30 @@ def SAVE_STAFF_NOTIFICATION(request):
         notification.save()
         messages.success(request, 'Notification Are Successfully Send !')
         return redirect('staff_send_notification')
+
+@login_required(login_url='/')
+def STAFF_LEAVE_VIEW(request):
+    staff_leave = Staff_Leave.objects.all()
+
+
+    context ={
+        'staff_leave':staff_leave,
+    }
+
+    return render(request,'hod/staff_leave_view.html',context)
+
+@login_required(login_url='/')
+def STAFF_APPROVE_LEAVE(request,id):
+    leave = Staff_Leave.objects.get(id =id)
+    leave.status =1
+    leave.save()
+
+    return redirect('staff_leave_view')
+
+@login_required(login_url='/')
+def STAFF_DISAPPROVE_LEAVE(request,id):
+    leave = Staff_Leave.objects.get(id=id)
+    leave.status = 2
+    leave.save()
+
+    return redirect('staff_leave_view')

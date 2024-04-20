@@ -63,26 +63,22 @@ urlpatterns = [
                   path('hod/session/edit/<str:id>', hod_views.EDIT_SESSION, name='edit_session'),
                   path('hod/session/update', hod_views.UPDATE_SESSION, name='update_session'),
                   path('hod/session/delete/<str:id>', hod_views.DELETE_SESSION, name='delete_session'),
-                  path('hod/staff/send_notification', hod_views.STAFF_SEND_NOTIFICATION, name='staff_send_notification'),
-                  path('hod/staff/save_notification', hod_views.SAVE_STAFF_NOTIFICATION, name='save_staff_notification'),
+                  path('hod/staff/send_notification', hod_views.STAFF_SEND_NOTIFICATION,
+                       name='staff_send_notification'),
+                  path('hod/staff/save_notification', hod_views.SAVE_STAFF_NOTIFICATION,
+                       name='save_staff_notification'),
+                  path('hod/staff/leave_view', hod_views.STAFF_LEAVE_VIEW, name='staff_leave_view'),
+                  path('hod/staff/approve_leave/<str:id>', hod_views.STAFF_APPROVE_LEAVE, name='staff_approve_leave'),
+                  path('hod/staff/disapprove_leave/<str:id>', hod_views.STAFF_DISAPPROVE_LEAVE, name='staff_disapprove_leave'),
 
+                  # this is HOD panel url
 
-                   # this is HOD panel url
+                  path('staff/home', staff_views.HOME, name='staff_home'),
+                  path('staff/notification', staff_views.NOTIFICATION, name='notification'),
+                  path('staff/mark_as_done/<str:status>', staff_views.STAFF_NOTIFICATION_MARK_AS_DONE,
+                       name='staff_notification_mark_as_done'),
 
-                   path('staff/home',staff_views.HOME,name='staff_home'),
-                   path('staff/notification',staff_views.NOTIFICATION,name='notification'),
-                   path('staff/mark_as_done/<str:status>', staff_views.STAFF_NOTIFICATION_MARK_AS_DONE, name='staff_notification_mark_as_done'),
-
-                  path('staff/apply_leave', staff_views.STAFF_APPLY_LEAVE,name='staff_apply_leave'),
-
-
-
-
-
-
-
-
-
-
+                  path('staff/apply_leave', staff_views.STAFF_APPLY_LEAVE, name='staff_apply_leave'),
+                  path('staff/apply_leave_save', staff_views.STAFF_APPLY_LEAVE_SAVE, name='staff_apply_leave_save'),
 
               ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
