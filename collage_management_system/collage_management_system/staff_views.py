@@ -1,5 +1,5 @@
 from django.shortcuts import render,redirect
-from collage_management_app.models import Staff,Staff_Notification,Staff_Leave
+from collage_management_app.models import Staff,Staff_Notification,Staff_Leave,Staff_Feedback
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 
@@ -50,3 +50,28 @@ def STAFF_APPLY_LEAVE_SAVE(request):
         leave.save()
         messages.success(request,'Leave Successfully Send')
     return redirect('staff_apply_leave')
+
+
+def STAFF_FEEDBACLK(request):
+    staff_id = Staff.objects.get(admin= request.user.id)
+    feedback_history = Staff_Feedback.objects.filter(staff_id = staff_id)
+
+    context ={
+        'feedback_history':feedback_history,
+    }
+    return render(request,'staff/staff_feedback.html',context)
+
+
+def STAFF_FEEDBACK_SAVE(request):
+    if request.method == "POST":
+        feedback = request.POST.get('feedback')
+        staff = Staff.objects.get(admin=request.user.id)
+        feedback = Staff_Feedback(
+           staff_id= staff,
+           feedback =feedback,
+           feedback_reply ="",
+
+        )
+        feedback.save()
+
+    return redirect('staff_feedback')
