@@ -4,10 +4,10 @@
     <div class="page-header">
         <div class="row align-items-center">
             <div class="col">
-                <h3 class="page-title">staff Notification</h3>
+                <h3 class="page-title">Student Notifications</h3>
                 <ul class="breadcrumb">
                     <li class="breadcrumb-item"><a href="index.html">Dashboard</a></li>
-                    <li class="breadcrumb-item active">staff notification</li>
+                    <li class="breadcrumb-item active">Student Notifications</li>
                 </ul>
             </div>
             {% include 'includes/messages.html' %}
@@ -32,12 +32,12 @@
                             <tbody>
                                 {% for notification in notifications %}
                                 <tr>
-                                    <td>{{ notification.massage }}</td>
+                                    <td>{{notification.massage}}</td>
                                     <td class="text-right">
                                         <div class="actions">
                                             {% if notification.status == 0 %}
                                             <button class="btn btn-danger"
-                                                    onclick="window.location.href='{% url 'staff_notification_mark_as_done' status=notification.id %}'">
+                                                    onclick="window.location.href='{% url 'student_notification_mark_as_done' status=notification.id %}'">
                                                 Mark As Done
                                             </button>
                                             {% else %}
@@ -45,7 +45,6 @@
                                             {% endif %}
                                         </div>
                                     </td>
-
                                 </tr>
                                 {% endfor %}
                             </tbody>

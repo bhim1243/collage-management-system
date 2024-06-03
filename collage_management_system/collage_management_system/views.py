@@ -28,7 +28,7 @@ def dologin(request):
             elif user_type == '2':
                 return redirect('staff_home')
             elif user_type == '3':
-                return HttpResponse('This is student panel')
+                return redirect('student_home')
             else:
                 # Handle unexpected user types here
                 return HttpResponse('Unknown user type')

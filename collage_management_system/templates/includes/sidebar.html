@@ -58,13 +58,13 @@
                     <a href="{%url 'staff_send_notification'%}"><i class="fa fa-bell"></i> <span>Send Staff Notification</span></a>
                 </li>
                 <li>
-                    <a href="holiday.html"><i class="fa fa-bell"></i> <span>Send Student Notification</span></a>
+                    <a href="{%url 'student_send_notification'%}"><i class="fa fa-bell"></i> <span>Send Student Notification</span></a>
                 </li>
                 <li>
                     <a href="holiday.html"><i class="fa fa-calendar"></i> <span>view Attendance</span></a>
                 </li>
                 <li>
-                    <a href="holiday.html"><i class="fas fa-comments"></i> <span>Staff feedback </span></a>
+                    <a href="{%url 'staff_feedback_reply'%}"><i class="fas fa-comments"></i> <span>Staff feedback </span></a>
                 </li>
                 <li>
                     <a href="holiday.html"><i class="fas fa-comments"></i><span> Student feedback </span></a>
@@ -89,14 +89,14 @@
                 <li class="{% active_link 'hod_home' 'active'%}">
                     <a href="{%url 'hod_home'%}"><i class="fas fa-holly-berry"></i> <span>Dashboard</span></a>
                 </li>
-                  <li class="{% active_link 'hod_home' 'active'%}">
-                    <a href="{%url 'hod_home'%}"><i class="fas fa-calendar-alt"></i> <span>Take Attendance</span></a>
+                  <li class="{% active_link '' 'active'%}">
+                    <a href=""><i class="fas fa-calendar-alt"></i> <span>Take Attendance</span></a>
                 </li>
-                  <li class="{% active_link 'hod_home' 'active'%}">
-                    <a href="{%url 'hod_home'%}"><i class="fas fa-calendar-alt"></i> <span>view/update Attendance</span></a>
+                  <li class="{% active_link '' 'active'%}">
+                    <a href=""><i class="fas fa-calendar-alt"></i> <span>view/update Attendance</span></a>
                 </li>
-                  <li class="{% active_link 'hod_home' 'active'%}">
-                    <a href="{%url 'hod_home'%}"><i class="fas fa-poll-h"></i> <span>Add Result </span></a>
+                  <li class="{% active_link '' 'active'%}">
+                    <a href=""><i class="fas fa-poll-h"></i> <span>Add Result </span></a>
                 </li>
                   <li class="{% active_link 'staff_apply_leave' 'active'%}">
                     <a href="{%url 'staff_apply_leave'%}"><i class="fas fa-envelope-open"></i> <span>Apply For Leave </span></a>
@@ -111,8 +111,35 @@
                     <a href="{%url 'logout'%}"><i class="fas fa-sign-out-alt"></i> <span>logout </span></a>
                 </li>
                   </ul>
-            {% else %}
+<!--            Student-->
 
+            {% else %}
+                  <ul>
+                       <li class="menu-title">
+                    <span>Main Menu</span>
+                </li>
+                        <li class="{% active_link 'student_home' 'active'%}">
+                    <a href="{%url 'student_home'%}"><i class="fas fa-holly-berry"></i> <span>Dashboard</span></a>
+                </li>
+                      <li class="">
+                         <a href=""><i class="fa fa-calendar" aria-hidden="true"></i><span>View Attendance</span></a>
+                      </li>
+                      <li class="">
+                         <a href=""><i class="fa fa-poll" aria-hidden="true"></i><span>View Result</span></a>
+                      </li>
+                       <li class="">
+                         <a href=""><i class="fa fa-pray" aria-hidden="true"></i><span>Apply for Leave</span></a>
+                      </li>
+                       <li class="">
+                         <a href=""><i class="fa fa-comment" aria-hidden="true"></i><span>send feedback</span></a>
+                      </li>
+                       <li class="">
+                         <a href="{%url 'student_notification'%}"><i class="fa fa-bell" aria-hidden="true"></i><span>Notifications</span></a>
+                      </li>
+                      <li>
+                    <a href="{%url 'logout'%}"><i class="fas fa-sign-out-alt"></i> <span>logout </span></a>
+                </li>
+                  </ul>
             {% endif%}
         </div>
     </div>

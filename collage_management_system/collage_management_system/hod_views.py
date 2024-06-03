@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
-from collage_management_app.models import Course, Session_year, CustomUser, Student,Staff,Subject,Staff_Notification,Staff_Leave
+from collage_management_app.models import Course, Session_year, CustomUser, Student,Staff,Subject,Staff_Notification,Staff_Leave,Staff_Feedback,Student_Notification
 from django.contrib import messages
 
 @login_required(login_url='/')
@@ -498,3 +498,48 @@ def STAFF_DISAPPROVE_LEAVE(request,id):
     leave.save()
 
     return redirect('staff_leave_view')
+
+@login_required(login_url='/')
+def STAFF_FEEDBACK_REPLY(request):
+    feedback = Staff_Feedback.objects.all()
+    context = {
+        'feedback': feedback,
+    }
+    return render(request, 'hod/staff_feedback.html', context)
+
+@login_required(login_url='/')
+def STAFF_FEEDBACK_SAVE(request):
+    if request.method == "POST":
+        feedback_id = request.POST.get('feedback_id')
+        feedback_reply = request.POST.get('feedback_reply')
+        feedback = Staff_Feedback.objects.get(id= feedback_id)
+        feedback.feedback_reply = feedback_reply
+        feedback.save()
+
+
+    return redirect('staff_feedback_reply')
+
+@login_required(login_url='/')
+def STUDENT_SEND_NOTIFICATION(request):
+    student= Student.objects.all()
+    notification = Student_Notification.objects.all()
+    context ={
+       'student':student,
+       'notification':notification,
+    }
+    return render(request,'hod/student_notification.html',context)
+
+@login_required(login_url='/')
+def SAVE_STUDENT_NOTIFICATION(request):
+    if request.method == 'POST':
+        student_id = request.POST.get('student_id')
+        massage = request.POST.get('massage')
+
+        student= Student.objects.get(admin=student_id)
+        notification =Student_Notification(
+            student_id=student,
+            massage=massage,  # Corrected 'massage' to 'message'
+        )
+        notification.save()
+        messages.success(request, 'Notification Are Successfully Send !')
+        return redirect('student_send_notification')
