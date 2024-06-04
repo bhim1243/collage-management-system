@@ -78,6 +78,14 @@ urlpatterns = [
                   path('hod/staff/feedback', hod_views.STAFF_FEEDBACK_REPLY, name='staff_feedback_reply'),
                   path('hod/staff/feedback/save', hod_views.STAFF_FEEDBACK_SAVE, name='staff_feedback_reply_save'),
 
+                  path('hod/student/leave_view', hod_views.STUDENT_LEAVE_VIEW, name='student_leave_view'),
+                  path('hod/student/approve_leave/<str:id>', hod_views.STUDENT_APPROVE_LEAVE, name='student_approve_leave'),
+                  path('hod/student/disapprove_leave/<str:id>', hod_views.STUDENT_DISAPPROVE_LEAVE,name='student_disapprove_leave'),
+
+                  path('hod/student/feedback', hod_views.STUDENT_FEEDBACK_REPLY, name='student_feedback_reply'),
+                  path('hod/staff/feedback/reply/save', hod_views.REPLY_STUDENT_FEEDBACK_SAVE, name='student_feedback_reply_save'),
+
+
                   # this is HOD panel url
                   path('staff/home', staff_views.HOME, name='staff_home'),
                   path('staff/notification', staff_views.NOTIFICATION, name='notification'),
@@ -93,6 +101,9 @@ urlpatterns = [
                 path('student/home',student_views.HOME,name='student_home'),
                 path('student/notification', student_views.STUDENT_NOTIFICATION, name='student_notification'),
                 path('student/mark_as_done/<str:status>', student_views.STUDENT_NOTIFICATION_MARK_AS_DONE,name='student_notification_mark_as_done'),
-
+                path('student/feedback', student_views.STUDENT_FEEDBACLK, name='student_feedback'),
+                path('student/feedback/save', student_views.STUDENT_FEEDBACK_SAVE, name='student_feedback_save'),
+                path('student/apply_leave',student_views.STUDENT_APPLY_LEAVE, name='student_apply_leave'),
+                path('student/apply_leave_save', student_views.STUDENT_APPLY_LEAVE_SAVE, name='student_apply_leave_save'),
 
               ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

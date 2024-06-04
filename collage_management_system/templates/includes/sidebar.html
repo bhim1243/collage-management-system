@@ -67,20 +67,22 @@
                     <a href="{%url 'staff_feedback_reply'%}"><i class="fas fa-comments"></i> <span>Staff feedback </span></a>
                 </li>
                 <li>
-                    <a href="holiday.html"><i class="fas fa-comments"></i><span> Student feedback </span></a>
+                    <a href="{%url 'student_feedback_reply'%}"><i class="fas fa-comments"></i><span> Student feedback </span></a>
                 </li>
                 <li>
                     <a href="{%url 'staff_leave_view'%}"><i class="fa fa-envelope"></i> <span>Staff Leave</span></a>
+
                 </li>
                 <li>
-                    <a href="holiday.html"><i class="fa fa-envelope"></i> <span>Student Leave</span></a>
+                    <a href="{%url 'student_leave_view'%}"><i class="fa fa-envelope"></i> <span>StudentLeave</span></a>
                 </li>
+
                 <li>
                     <a href="{%url 'logout'%}"><i class="fas fa-sign-out-alt"></i> <span>logout </span></a>
                 </li>
 
             </ul>
-
+<!-- Staff-->
              {% elif user.user_type == '2' %}
               <ul>
                 <li class="menu-title">
@@ -111,6 +113,7 @@
                     <a href="{%url 'logout'%}"><i class="fas fa-sign-out-alt"></i> <span>logout </span></a>
                 </li>
                   </ul>
+
 <!--            Student-->
 
             {% else %}
@@ -128,10 +131,10 @@
                          <a href=""><i class="fa fa-poll" aria-hidden="true"></i><span>View Result</span></a>
                       </li>
                        <li class="">
-                         <a href=""><i class="fa fa-pray" aria-hidden="true"></i><span>Apply for Leave</span></a>
+                         <a href="{%url 'student_apply_leave'%}"><i class="fa fa-pray" aria-hidden="true"></i><span>Apply for Leave</span></a>
                       </li>
                        <li class="">
-                         <a href=""><i class="fa fa-comment" aria-hidden="true"></i><span>send feedback</span></a>
+                         <a href="{%url 'student_feedback'%}"><i class="fa fa-comment" aria-hidden="true"></i><span>send feedback</span></a>
                       </li>
                        <li class="">
                          <a href="{%url 'student_notification'%}"><i class="fa fa-bell" aria-hidden="true"></i><span>Notifications</span></a>

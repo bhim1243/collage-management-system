@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
-from collage_management_app.models import Course, Session_year, CustomUser, Student,Staff,Subject,Staff_Notification,Staff_Leave,Staff_Feedback,Student_Notification
+from collage_management_app.models import Course, Session_year, CustomUser, Student,Staff,Subject,Staff_Notification,Staff_Leave,Staff_Feedback,Student_Notification,Student_Feedback,Student_Leave
 from django.contrib import messages
 
 @login_required(login_url='/')
@@ -514,10 +514,60 @@ def STAFF_FEEDBACK_SAVE(request):
         feedback_reply = request.POST.get('feedback_reply')
         feedback = Staff_Feedback.objects.get(id= feedback_id)
         feedback.feedback_reply = feedback_reply
+        feedback.status = 1
         feedback.save()
 
 
     return redirect('staff_feedback_reply')
+
+
+def STUDENT_LEAVE_VIEW(request):
+    student_leave = Student_Leave.objects.all()
+
+    context={
+        'student_leave':student_leave,
+    }
+
+    return render(request,'hod/student_leave_view.html',context)
+
+
+
+def STUDENT_APPROVE_LEAVE(request,id):
+    student_leave = Student_Leave.objects.get(id=id)
+    student_leave.status = 1
+    student_leave.save()
+
+
+    return redirect('student_leave_view')
+
+
+def STUDENT_DISAPPROVE_LEAVE(request,id):
+    student_leave = Student_Leave.objects.get(id=id)
+    student_leave.status = 2
+    student_leave.save()
+
+    return redirect('student_leave_view')
+
+def STUDENT_FEEDBACK_REPLY(request):
+    feedback = Student_Feedback.objects.all()
+    feedback_history = Student_Feedback.objects.all().order_by('-id')[0:5]
+    context = {
+        'feedback': feedback,
+        'feedback_history':feedback_history,
+    }
+
+    return render(request, 'hod/student_feedback.html',context)
+
+def REPLY_STUDENT_FEEDBACK_SAVE(request):
+    if request.method == "POST":
+        feedback_id = request.POST.get('feedback_id')
+        feedback_reply = request.POST.get('feedback_reply')
+        feedback = Student_Feedback.objects.get(id=feedback_id)
+        feedback.feedback_reply = feedback_reply
+        feedback.status = 1
+        feedback.save()
+
+    return redirect('student_feedback_reply')
 
 @login_required(login_url='/')
 def STUDENT_SEND_NOTIFICATION(request):
@@ -528,6 +578,8 @@ def STUDENT_SEND_NOTIFICATION(request):
        'notification':notification,
     }
     return render(request,'hod/student_notification.html',context)
+
+
 
 @login_required(login_url='/')
 def SAVE_STUDENT_NOTIFICATION(request):
@@ -543,3 +595,5 @@ def SAVE_STUDENT_NOTIFICATION(request):
         notification.save()
         messages.success(request, 'Notification Are Successfully Send !')
         return redirect('student_send_notification')
+
+
