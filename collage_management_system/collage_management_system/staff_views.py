@@ -135,10 +135,10 @@ def STAFF_SAVE_ATTENDANCE(request):
 
             p_students =Student.objects.get(id = int_stud)
             attendance_report = Attendance_Report(
-                subject_id= p_students,
+                student_id= p_students,
                 Attendance_id =attendance
             )
-    attendance_report.save()
+            attendance_report.save()
 
 
 
