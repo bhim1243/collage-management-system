@@ -123,3 +123,27 @@ class Student_Leave(models.Model):
 
     def __str__(self):
         return self.student_id.admin.first_name + self.student_id.admin.last_name
+
+
+class Attendance(models.Model):
+    subject_id = models.ForeignKey(Subject,on_delete=models.DO_NOTHING)
+    Attendance_date = models.DateField()
+    session_year_id = models.ForeignKey(Session_year,on_delete=models.DO_NOTHING)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now_add=True)
+
+
+    def __str__(self):
+        return self.subject_id.name
+
+
+class Attendance_Report(models.Model):
+    subject_id = models.ForeignKey(Subject,on_delete=models.DO_NOTHING)
+    Attendance_id = models.ForeignKey(Attendance,on_delete=models.CASCADE)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now_add=True)
+
+
+    def __str__(self):
+        return self.subject_id.admin.first_name
+

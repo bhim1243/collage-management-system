@@ -39,7 +39,6 @@ urlpatterns = [
                   path('hod/student/update/', hod_views.UPDATE_STUDENT, name='update_student'),
                   path('hod/student/delete/<str:admin>', hod_views.DELETE_STUDENT, name='delete_student'),
 
-
                   # this is staff panel
                   path('hod/staff/add', hod_views.ADD_STAFF, name='add_staff'),
                   path('hod/staff/view', hod_views.VIEW_STAFF, name='view_staff'),
@@ -64,29 +63,34 @@ urlpatterns = [
                   path('hod/session/edit/<str:id>', hod_views.EDIT_SESSION, name='edit_session'),
                   path('hod/session/update', hod_views.UPDATE_SESSION, name='update_session'),
                   path('hod/session/delete/<str:id>', hod_views.DELETE_SESSION, name='delete_session'),
-                  path('hod/staff/send_notification', hod_views.STAFF_SEND_NOTIFICATION, name='staff_send_notification'),
-                  path('hod/staff/save_notification', hod_views.SAVE_STAFF_NOTIFICATION, name='save_staff_notification'),
+                  path('hod/staff/send_notification', hod_views.STAFF_SEND_NOTIFICATION,
+                       name='staff_send_notification'),
+                  path('hod/staff/save_notification', hod_views.SAVE_STAFF_NOTIFICATION,
+                       name='save_staff_notification'),
 
-                  path('hod/student/send_notification', hod_views.STUDENT_SEND_NOTIFICATION, name='student_send_notification'),
-                  path('hod/student/save_notification', hod_views.SAVE_STUDENT_NOTIFICATION, name='save_student_notification'),
-
-
+                  path('hod/student/send_notification', hod_views.STUDENT_SEND_NOTIFICATION,
+                       name='student_send_notification'),
+                  path('hod/student/save_notification', hod_views.SAVE_STUDENT_NOTIFICATION,
+                       name='save_student_notification'),
 
                   path('hod/staff/leave_view', hod_views.STAFF_LEAVE_VIEW, name='staff_leave_view'),
                   path('hod/staff/approve_leave/<str:id>', hod_views.STAFF_APPROVE_LEAVE, name='staff_approve_leave'),
-                  path('hod/staff/disapprove_leave/<str:id>', hod_views.STAFF_DISAPPROVE_LEAVE, name='staff_disapprove_leave'),
+                  path('hod/staff/disapprove_leave/<str:id>', hod_views.STAFF_DISAPPROVE_LEAVE,
+                       name='staff_disapprove_leave'),
                   path('hod/staff/feedback', hod_views.STAFF_FEEDBACK_REPLY, name='staff_feedback_reply'),
                   path('hod/staff/feedback/save', hod_views.STAFF_FEEDBACK_SAVE, name='staff_feedback_reply_save'),
 
                   path('hod/student/leave_view', hod_views.STUDENT_LEAVE_VIEW, name='student_leave_view'),
-                  path('hod/student/approve_leave/<str:id>', hod_views.STUDENT_APPROVE_LEAVE, name='student_approve_leave'),
-                  path('hod/student/disapprove_leave/<str:id>', hod_views.STUDENT_DISAPPROVE_LEAVE,name='student_disapprove_leave'),
+                  path('hod/student/approve_leave/<str:id>', hod_views.STUDENT_APPROVE_LEAVE,
+                       name='student_approve_leave'),
+                  path('hod/student/disapprove_leave/<str:id>', hod_views.STUDENT_DISAPPROVE_LEAVE,
+                       name='student_disapprove_leave'),
 
                   path('hod/student/feedback', hod_views.STUDENT_FEEDBACK_REPLY, name='student_feedback_reply'),
-                  path('hod/staff/feedback/reply/save', hod_views.REPLY_STUDENT_FEEDBACK_SAVE, name='student_feedback_reply_save'),
+                  path('hod/staff/feedback/reply/save', hod_views.REPLY_STUDENT_FEEDBACK_SAVE,
+                       name='student_feedback_reply_save'),
 
-
-                  # this is HOD panel url
+                  # this is staff panel url
                   path('staff/home', staff_views.HOME, name='staff_home'),
                   path('staff/notification', staff_views.NOTIFICATION, name='notification'),
                   path('staff/mark_as_done/<str:status>', staff_views.STAFF_NOTIFICATION_MARK_AS_DONE,
@@ -94,16 +98,20 @@ urlpatterns = [
 
                   path('staff/apply_leave', staff_views.STAFF_APPLY_LEAVE, name='staff_apply_leave'),
                   path('staff/apply_leave_save', staff_views.STAFF_APPLY_LEAVE_SAVE, name='staff_apply_leave_save'),
-                  path('staff/feedback',staff_views.STAFF_FEEDBACLK,name='staff_feedback'),
-                  path('staff/feedback/save',staff_views.STAFF_FEEDBACK_SAVE,name='staff_feedback_save'),
+                  path('staff/feedback', staff_views.STAFF_FEEDBACLK, name='staff_feedback'),
+                  path('staff/feedback/save', staff_views.STAFF_FEEDBACK_SAVE, name='staff_feedback_save'),
+                  path('staff/take_attendance', staff_views.STAFF_TAKE_ATTENDANCE, name='staff_take_attendance'),
+                  path('staff/save_attendance', staff_views.STAFF_SAVE_ATTENDANCE, name='staff_save_attendance_report'),
 
-                #  This is Student  url
-                path('student/home',student_views.HOME,name='student_home'),
-                path('student/notification', student_views.STUDENT_NOTIFICATION, name='student_notification'),
-                path('student/mark_as_done/<str:status>', student_views.STUDENT_NOTIFICATION_MARK_AS_DONE,name='student_notification_mark_as_done'),
-                path('student/feedback', student_views.STUDENT_FEEDBACLK, name='student_feedback'),
-                path('student/feedback/save', student_views.STUDENT_FEEDBACK_SAVE, name='student_feedback_save'),
-                path('student/apply_leave',student_views.STUDENT_APPLY_LEAVE, name='student_apply_leave'),
-                path('student/apply_leave_save', student_views.STUDENT_APPLY_LEAVE_SAVE, name='student_apply_leave_save'),
+
+                  #  This is Student  url
+                  path('student/home', student_views.HOME, name='student_home'),
+                  path('student/notification', student_views.STUDENT_NOTIFICATION, name='student_notification'),
+                  path('student/mark_as_done/<str:status>', student_views.STUDENT_NOTIFICATION_MARK_AS_DONE, name='student_notification_mark_as_done'),
+                  path('student/feedback', student_views.STUDENT_FEEDBACLK, name='student_feedback'),
+                  path('student/feedback/save', student_views.STUDENT_FEEDBACK_SAVE, name='student_feedback_save'),
+                  path('student/apply_leave', student_views.STUDENT_APPLY_LEAVE, name='student_apply_leave'),
+                  path('student/apply_leave_save', student_views.STUDENT_APPLY_LEAVE_SAVE,
+                       name='student_apply_leave_save'),
 
               ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
