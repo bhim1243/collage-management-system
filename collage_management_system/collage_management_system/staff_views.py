@@ -94,7 +94,7 @@ def STAFF_TAKE_ATTENDANCE(request):
 
             get_subject = Subject.objects.get(id= subject_id)
             get_session_year = Session_year.objects.get(id = session_year_id)
-            Attendance= Subject.objects.filter(id = subject_id)
+            students= Subject.objects.filter(id = subject_id)
             for subject in subjects:
                 student_id= subject.course.id
                 students = Student.objects.filter(course_id = student_id)
@@ -128,18 +128,16 @@ def STAFF_SAVE_ATTENDANCE(request):
         )
         attendance.save()
 
+        for student_id in student_id:
 
-        for i in student_id:
-            stud_id = i
-            int_stud = int(stud_id)
+            int_student_id = int(student_id)
 
-            p_students =Student.objects.get(id = int_stud)
+            p_students = Student.objects.get(id=int_student_id)
+            print(p_students)
             attendance_report = Attendance_Report(
-                student_id= p_students,
-                Attendance_id =attendance
-            )
+                    student_id=p_students,
+                    Attendance_id=attendance
+                )
             attendance_report.save()
-
-
 
     return redirect('staff_take_attendance')
