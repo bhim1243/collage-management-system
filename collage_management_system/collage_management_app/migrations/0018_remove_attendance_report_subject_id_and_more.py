@@ -14,11 +14,11 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='attendance_report',
             name='student_id',
-            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.DO_NOTHING, to='collage_management_app.student'),
+            field=models.ForeignKey( on_delete=django.db.models.deletion.DO_NOTHING, to='collage_management_app.student'),
         ),
         migrations.AlterField(
             model_name='attendance_report',
             name='Attendance_id',
-            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, to='collage_management_app.attendance'),
+            field=models.ForeignKey( on_delete=django.db.models.deletion.CASCADE, to='collage_management_app.attendance'),
         ),
     ]
