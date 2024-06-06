@@ -1,106 +1,108 @@
 {% extends 'base.html'%}
 {% block content%}
-<div class="content container-fluid">
+<div class="contentcontainer-fluid">
     <div class="page-header">
-        <div class="row align-items-center">
+        <div class="rowalign-items-center">
             <div class="col">
-                <h3 class="page-title">Take Attendance</h3>
+                <h3 class="page-title">TakeAttendance</h3>
                 <ul class="breadcrumb">
                     <li class="breadcrumb-item">
                         <a href="subjects.html">Attendance</a>
                     </li>
-                    <li class="breadcrumb-item active"> Take Attendance</li>
+                    <li class="breadcrumb-itemactive">TakeAttendance</li>
                 </ul>
             </div>
         </div>
     </div>
-    {% include 'includes/messages.html' %}
+    {%include 'includes/messages.html'%}
     <div class="row">
         <div class="col-sm-12">
             <div class="card">
                 <div class="card-body">
-                    {% if action is None%}
+                    {%if action is None%}
                     <form action="?action=get_subject" method="post">
-                        {% csrf_token %}
+                        {%csrf_token%}
                         <div class="row">
                             <div class="col-12">
                                 <h5 class="form-title">
-                                    <span>Subject Information</span>
+                                    <span>SubjectInformation</span>
                                 </h5>
                             </div>
                             <div class="col-12 col-sm-6">
                                 <label>subjects</label>
                                 <select class="form-control" name="subject_id" required>
                                     <option>Select subjects</option>
-                                    {% if subjects %}
-                                    {% for subject in subjects %}
-                                    <option value="{{ subject.id }}">{{ subject.name }}</option>
-                                    {% endfor %}
-                                    {% else %}
-                                    <option>No course available</option>
-                                    {% endif %}
+                                    {%if subjects%}
+                                    {%for subject in subjects%}
+                                    <option value="{{subject.id}}">{{subject.name}}</option>
+                                    {%endfor%}
+                                    {%else%}
+                                    <option>Nocour seavailable</option>
+                                    {%endif%}
                                 </select>
                             </div>
                             <div class="col-12 col-sm-6">
-                                <label>session Year</label>
+                                <label>sessionYear</label>
                                 <select class="form-control" name="session_year_id" required>
-                                    <option>Select Session</option>
-                                    {% if session_years %}
-                                    {% for session_year in session_years %}
-                                    <option value="{{ session_year.id }}">{{ session_year.session_start }}TO{{session_year.session_start}}
+                                    <option>SelectSession</option>
+                                    {%if session_years%}
+                                    {%for session_year in session_years%}
+                                    <option value="{{session_year.id}}">
+                                        {{session_year.session_start}}TO{{session_year.session_start}}
                                     </option>
-                                    {% endfor %}
-                                    {% else %}
-                                    <option>No session_years available</option>
-                                    {% endif %}
+                                    {%endfor%}
+                                    {%else%}
+                                    <option>Nosession_yearsavailable</option>
+                                    {%endif%}
                                 </select>
                             </div>
                             <div class="col-12 mt-3">
                                 <button type="submit" class="btn btn-primary">
-                                    Fetch Student
+                                    FetchStudent
                                 </button>
                             </div>
                         </div>
                     </form>
-                    {% else %}
-                    <form action="{% url 'staff_save_attendance_report'%} " method="post">
-                        {% csrf_token %}
+                    {%else%}
+                    <form action="{%url 'staff_save_attendance_report'%}" method="post">
+                        {%csrf_token%}
                         <div class="row">
                             <div class="col-12">
                                 <h5 class="form-title">
-                                    <span>Subject Information</span>
+                                    <span>SubjectInformation</span>
                                 </h5>
                             </div>
 
-                            <div class="col-12 col-sm-6">
+                            <div class="col-12col-sm-6">
                                 <label>subject</label>
                                 <select class="form-control" name="subject_id" required>
-                                    <option value="{{ get_subject.id }}">{{ get_subject }}</option>
+                                    <option value="{{get_subject.id}}">{{get_subject}}</option>
 
                                 </select>
                             </div>
-                            <div class="col-12 col-sm-6">
-                                <label>Session year</label>
+                            <div class="col-12col-sm-6">
+                                <label>Sessionyear</label>
                                 <select class="form-control" name="session_year_id" required>
-                                    <option value="{{ get_session_year.id }}">{{ get_session_year }}</option>
+                                    <option value="{{get_session_year.id}}">{{get_session_year}}</option>
                                 </select>
                             </div>
-                            <div class="col-12 col-sm-6">
+                            <div class="col-12col-sm-6">
                                 <div class="form-group">
-                                    <label>Attendance Date</label>
+                                    <label>AttendanceDate</label>
                                     <input type="date" class="form-control" name="Attendance_date" required/>
                                 </div>
                             </div>
-                            {% for student in students%}
-                            <div class="col-12 mt-4 mt-3">
+                            {%for student in students%}
+                            <div class="col-12mt-4mt-3">
                                 <div class="form-check">
-                                    <input type="checkbox" class="form-check-input" id="exampleCheck1" value="{{student.id}}" name="student_id">
-                                    <label class="form-check-label" for="exampleCheck1">{{student.admin.first_name}}  {{student.admin.last_name}}</label>
+                                    <input type="checkbox" class="form-check-input" id="exampleCheck1"
+                                           value="{{student.id}}" name="student_id">
+                                    <label class="form-check-label" for="exampleCheck1">{{student.admin.first_name}}{{student.admin.last_name}}</label>
                                 </div>
                             </div>
-                              {%endfor%}
-                            <div class="col-12 mt-3">
-                                <button type="submit" class="btn btn-primary">
+                            {%endfor%}
+                            <div class="col-12mt-3">
+                                <button type="submit" class="btnbtn-primary">
                                     Submit
                                 </button>
                             </div>
@@ -108,7 +110,7 @@
                     </form>
 
 
-                    {% endif %}
+                    {%endif%}
                 </div>
             </div>
         </div>

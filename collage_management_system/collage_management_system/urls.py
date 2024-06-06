@@ -104,10 +104,12 @@ urlpatterns = [
                   path('staff/save_attendance', staff_views.STAFF_SAVE_ATTENDANCE, name='staff_save_attendance_report'),
 
 
+
                   #  This is Student  url
                   path('student/home', student_views.HOME, name='student_home'),
                   path('student/notification', student_views.STUDENT_NOTIFICATION, name='student_notification'),
-                  path('student/mark_as_done/<str:status>', student_views.STUDENT_NOTIFICATION_MARK_AS_DONE, name='student_notification_mark_as_done'),
+                  path('student/mark_as_done/<str:status>', student_views.STUDENT_NOTIFICATION_MARK_AS_DONE,
+                       name='student_notification_mark_as_done'),
                   path('student/feedback', student_views.STUDENT_FEEDBACLK, name='student_feedback'),
                   path('student/feedback/save', student_views.STUDENT_FEEDBACK_SAVE, name='student_feedback_save'),
                   path('student/apply_leave', student_views.STUDENT_APPLY_LEAVE, name='student_apply_leave'),
