@@ -20,7 +20,9 @@ admin.site.register(Staff_Feedback)
 admin.site.register(Student_Notification)
 admin.site.register(Student_Feedback)
 admin.site.register(Student_Leave)
-admin.site.register(Attendance)
-admin.site.register(Attendance_Report)
+admin.site.register(Upasthiti)
+admin.site.register(Upasthiti_Repory)
+
+
 
 

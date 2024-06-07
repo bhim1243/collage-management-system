@@ -100,9 +100,7 @@ urlpatterns = [
                   path('staff/apply_leave_save', staff_views.STAFF_APPLY_LEAVE_SAVE, name='staff_apply_leave_save'),
                   path('staff/feedback', staff_views.STAFF_FEEDBACLK, name='staff_feedback'),
                   path('staff/feedback/save', staff_views.STAFF_FEEDBACK_SAVE, name='staff_feedback_save'),
-                  path('staff/take_attendance', staff_views.STAFF_TAKE_ATTENDANCE, name='staff_take_attendance'),
-                  path('staff/save_attendance', staff_views.STAFF_SAVE_ATTENDANCE, name='staff_save_attendance_report'),
-
+                  path('staff/attendance', staff_views.ATTENDANCE, name='staff_attendance'),
 
 
                   #  This is Student  url

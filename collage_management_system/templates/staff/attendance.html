@@ -1,0 +1,107 @@
+{% extends 'base.html'%}
+{% block content%}
+<div class="content container-fluid">
+          <div class="page-header">
+            <div class="row align-items-center">
+              <div class="col">
+                <h3 class="page-title">Take Attendance</h3>
+                <ul class="breadcrumb">
+                  <li class="breadcrumb-item">
+                    <a href="subjects.html">Subject</a>
+                  </li>
+                  <li class="breadcrumb-item active">Take Attendance </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+             {% include 'includes/messages.html' %}
+          <div class="row">
+            <div class="col-sm-12">
+              <div class="card">
+                <div class="card-body">
+                    {%if action is None%}
+                  <form action="?action=get_student " method="post">
+                      {% csrf_token %}
+                    <div class="row">
+                      <div class="col-12">
+                        <h5 class="form-title">
+                          <span>Subject Information</span>
+                        </h5>
+                      </div>
+                        <div class="col-12 col-sm-6">
+                        <label>Course</label>
+                            <select class="form-control" name="course_id" required>
+                                <option>Select Course</option>
+                                {% if subjects %}
+                                {% for subjects in subjects %}
+                                <option value="{{ subjects.id }}">{{ subjects.name }}</option>
+                                {% endfor %}
+                                {% else %}
+                                <option>No course available</option>
+                                {% endif %}
+                            </select>
+                      </div>
+                      <div class="col-12 col-sm-6">
+                        <label>Staff</label>
+                            <select class="form-control" name="staff_id" required>
+                                <option>Session Year</option>
+                                {% if  session_years %}
+                                {% for session_years in session_years %}
+                                <option value="{{ session_years.id }}">{{ session_years.session_start }} TO {{ session_years.session_end}}</option>
+                                {% endfor %}
+                                {% else %}
+                                <option>No staff available</option>
+                                {% endif %}
+                            </select>
+                      </div>
+                      <div class="col-12 mt-3">
+                        <button type="submit" class="btn btn-primary">
+                          Fetch Student
+                        </button>
+                      </div>
+                    </div>
+                  </form>
+
+                    {%else%}
+                     <form action="{% url 'add_subject'%} " method="post">
+                      {% csrf_token %}
+                    <div class="row">
+                      <div class="col-12">
+                        <h5 class="form-title">
+                          <span>Subject Information</span>
+                        </h5>
+                      </div>
+
+
+                      <div class="col-12 col-sm-6">
+                        <label>Subject</label>
+                            <select class="form-control" name="course_id" required>
+                                <option value="{{ course.id }}">{{ get_subject }}</option>
+                            </select>
+                      </div>
+                      <div class="col-12 col-sm-6">
+                        <label>Session</label>
+                            <select class="form-control" name="staff_id" required>
+                                <option value="{{ staff.id }}">{{get_session_year }}</option>
+                            </select>
+                      </div>
+                        <div class="col-12 col-sm-6">
+                        <div class="form-group">
+                          <label>Attendance Date</label>
+                          <input type="date" class="form-control"name="subject_name" required />
+                        </div>
+                      </div>
+                      <div class="col-12 mt-3">
+                        <button type="submit" class="btn btn-primary">
+                          Submit
+                        </button>
+                      </div>
+                    </div>
+                  </form>
+                    {%endif%}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+{%endblock%}
