@@ -1,5 +1,5 @@
 from django.shortcuts import render,redirect
-from collage_management_app.models import Student_Notification,Student,Student_Feedback,Student_Leave
+from collage_management_app.models import Student_Notification,Student,Student_Feedback,Student_Leave,Subject,Attendance,Attendance_Repory
 from django.contrib import messages
 def HOME(request):
     return render(request,'student/home.html')
@@ -72,3 +72,29 @@ def STUDENT_APPLY_LEAVE_SAVE(request):
         leave.save()
         messages.success(request, 'Leave Successfully Send')
     return redirect('student_apply_leave')
+
+
+def STUDENT_VIEW_ATTENDANCE(request):
+    student = Student.objects.get(admin=request.user.id)
+    subjects = Subject.objects.filter(course=student.course_id)
+    action= request.GET.get('action')
+
+    get_subject=None
+    attendance_reports=None
+
+    if action is not None:
+        if request.method == "POST":
+            subject_id = request.POST.get('subject_id')
+            get_subject = Subject.objects.get(id = subject_id)
+
+
+            attendance_reports = Attendance_Repory.objects.filter(student_id= student,Attendance_id__subject_id=subject_id)
+
+    context ={
+        'subjects': subjects,
+        'action':action,
+        'get_subject':get_subject,
+        'attendance_reports':attendance_reports,
+    }
+
+    return render(request, 'student/view_attendance.html', context)

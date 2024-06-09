@@ -4,23 +4,23 @@
     <div class="page-header">
         <div class="row align-items-center">
             <div class="col">
-                <h3 class="page-title">Take Attendance</h3>
+                <h3 class="page-title">View Attendance</h3>
                 <ul class="breadcrumb">
                     <li class="breadcrumb-item">
                         <a href="subjects.html">Subject</a>
                     </li>
-                    <li class="breadcrumb-item active">Take Attendance</li>
+                    <li class="breadcrumb-item active">View Attendance</li>
                 </ul>
             </div>
         </div>
     </div>
     {% include 'includes/messages.html' %}
+    {%if action is None%}
     <div class="row">
         <div class="col-sm-12">
             <div class="card">
                 <div class="card-body">
-                    {%if action is None%}
-                    <form action="?action=get_student" method="post">
+                    <form action="?action=view_student" method="post">
                         {% csrf_token %}
                         <div class="row">
                             <div class="col-12">
@@ -56,17 +56,30 @@
                                     {% endif %}
                                 </select>
                             </div>
+                            <div class="col-12 col-sm-6 mt-4">
+                                <label for="session-year">Session Year</label>
+                                <input type="date" class="form-control" id="session-year" name="date" required/>
+                            </div>
+
 
                             <div class="col-12 mt-3">
                                 <button type="submit" class="btn btn-primary">
-                                    Fetch Student
+                                    Show Student
                                 </button>
                             </div>
                         </div>
                     </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    {%else%}
 
-                    {%else%}
-                    <form action="{%url 'staff_attendance_report'%}" method="post">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="card">
+                <div class="card-body">
+                    <form action="?action=view_student" method="post">
                         {% csrf_token %}
                         <div class="row">
                             <div class="col-12">
@@ -76,42 +89,68 @@
                             </div>
                             <div class="col-12 col-sm-6">
                                 <label>Subject</label>
-                                <select class="form-control" name="subject_id" required>
-                                    <option value="{{get_subject.id }}">{{ get_subject }}</option>
-                                </select>
-                            </div>
-                            <div class="col-12 col-sm-6">
-                                <label>Session</label>
-                                <select class="form-control" name="session_year_id" required>
-                                    <option value="{{ get_session_year.id }}">{{get_session_year }}</option>
-                                </select>
-                            </div>
-                            <div class="col-12 col-sm-6">
-                                <div class="form-group">
-                                    <label>Attendance Date</label>
-                                    <input type="date" class="form-control" name="date" required/>
-                                </div>
-                            </div>
+                                <select class="form-control" name="subject_id" disabled>
+                                    <option value="{{ subject.id }}">{{get_subject }}</option>
 
-                            {% for student in students %}
-                            <div class="col-12 col-mt-4">
-                                <div class="form-check">
-                                    <input type="checkbox" class="form-check-input" id="exampleCheck1" value="{{student.id}}" name="student_id">
-                                    <label class="form-check-label" for="exampleCheck1">{{student.admin.first_name}} {{student.admin.last_name}}</label>
-                                </div>
+                                </select>
                             </div>
-                            {%endfor%}
+                            <div class="col-12 col-sm-6">
+                                <label>Session Year</label>
+                                <select class="form-control" name="session_year_id" disabled>
+
+                                    <option value="{{ session_year.id }}">{{ get_session_year}}
+
+                                    </option>
+
+                                </select>
+                            </div>
+                            <div class="col-12 col-sm-6 mt-4">
+                                <label for="session-year">Attendance Date</label>
+                                <input type="date" class="form-control" id="date_id" name="date"
+                                       value="{{date}}" disabled/>
+                            </div>
                             <div class="col-12 mt-3">
-                                <button type="submit" class="btn btn-primary">
-                                    Submit
-                                </button>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="card card-table">
+                                            <div class="card-body">
+                                                <div class="table-responsive">
+                                                    <table id="table_id" class="table table-hover table-center mb-0">
+                                                        <thead>
+                                                        <tr>
+                                                            <th>ID</th>
+                                                            <th>Name</th>
+                                                            <th>Email</th>
+
+                                                        </tr>
+                                                        </thead>
+                                                        <tbody>
+
+                                                            {% for attendance_report in attendance_reports %}
+                                                            <tr>
+                                                                <td>{{ attendance_report.student_id.admin.id }}</td>
+                                                                <td>{{ attendance_report.student_id.admin.first_name }} {{ attendance_report.student_id.admin.last_name }}
+                                                                </td>
+                                                                <td>{{ attendance_report.student_id.admin.email }}</td>
+                                                            </tr>
+                                                            {% endfor %}
+
+
+                                                        </tbody>
+
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </form>
-                    {%endif%}
                 </div>
             </div>
         </div>
     </div>
+    {%endif%}
 </div>
 {%endblock%}

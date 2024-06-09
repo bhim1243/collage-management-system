@@ -1,6 +1,5 @@
 from django.shortcuts import render, redirect
-from collage_management_app.models import Staff, Staff_Notification, Staff_Leave, Staff_Feedback, Subject, Session_year, \
-    Student
+from collage_management_app.models import Staff, Staff_Notification, Staff_Leave, Staff_Feedback, Subject, Session_year,Student,Attendance,Attendance_Repory
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 
@@ -85,32 +84,102 @@ def ATTENDANCE(request):
     staff_id = Staff.objects.get(admin=request.user.id)
     subjects = Subject.objects.filter(staff=staff_id)
     session_years = Session_year.objects.all()
-
     action = request.GET.get('action')
 
-    get_subject = None
-    get_session_year = None
-    students = None
+    get_session_year =None
+    get_subject =None
+    students =None
 
     if action is not None:
         if request.method == "POST":
             subject_id = request.POST.get('subject_id')
             session_year_id = request.POST.get('session_year_id')
 
-            get_subject = Subject.objects.get(id=subject_id)
+            get_subject = Subject.objects.get(id =subject_id)
             get_session_year = Session_year.objects.get(id=session_year_id)
-            students = Subject.objects.filter(id=subject_id)
+            subjects = Subject.objects.filter(id =subject_id )
             for subject in subjects:
                 student_id = subject.course.id
-                students = Student.objects.filter(course_id=student_id)
-
+                students = Student.objects.filter(course_id =student_id)
+                print(students)
     context = {
         'subjects': subjects,
         'session_years': session_years,
-        'get_subject': get_subject,
-        'get_session_year': get_session_year,
+        'get_subject':get_subject,
+        'get_session_year':get_session_year,
+        'students':students,
         'action': action,
-        'students': students,
+
     }
 
     return render(request,'staff/attendance.html',context)
+
+
+def ATTENDANCE_REPORT(request):
+    if request.method == "POST":
+        subject_id = request.POST.get('subject_id')
+        session_year_id = request.POST.get('session_year_id')
+        date = request.POST.get('date')  # Changed variable name to follow PEP8
+        student_ids = request.POST.getlist('student_id')  # Changed to getlist to get all student_ids
+
+        get_subject = Subject.objects.get(id=subject_id)
+        get_session_year = Session_year.objects.get(id=session_year_id)
+
+        attendance= Attendance(
+            subject_id=get_subject,
+            date= date,
+            session_year_id=get_session_year,
+        )
+        attendance.save()
+
+        for student_id in student_ids:
+            int_student_id = int(student_id)
+            p_student = Student.objects.get(id=int_student_id)
+
+            attendance_report = Attendance_Repory(
+                student_id=p_student,
+                Attendance_id= attendance
+            )
+            attendance_report.save()
+
+    return redirect('staff_attendance')
+
+
+def VIEW_ATTENDANCE(request):
+    staff_id = Staff.objects.get(admin = request.user.id)
+    subjects = Subject.objects.filter(staff_id=staff_id)
+    session_years = Session_year.objects.all()
+    action = request.GET.get('action')
+
+    get_subject =None
+    get_session_year =None
+    date=None
+    attendance_reports=None
+
+    if action is not None:
+        if request.method == "POST":
+            subject_id = request.POST.get('subject_id')
+            session_year_id = request.POST.get('session_year_id')
+            date = request.POST.get('date')
+
+            get_subject = Subject.objects.get(id= subject_id)
+            get_session_year = Session_year.objects.get(id=session_year_id)
+
+            attendance = Attendance.objects.filter(subject_id=get_subject, date=date)
+
+
+            for attendance in attendance:
+                attendance_id = attendance.id
+                attendance_reports = Attendance_Repory.objects.filter(Attendance_id=attendance_id)
+                print(attendance_reports)
+    context= {
+        'subjects':subjects,
+        'session_years':session_years,
+         'action':action,
+        'get_subject':get_subject,
+        'get_session_year':get_session_year,
+        'date':date,
+        'attendance_reports':attendance_reports,
+    }
+
+    return render(request,'staff/view_attendance.html',context)

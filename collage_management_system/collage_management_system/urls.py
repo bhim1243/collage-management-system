@@ -72,6 +72,8 @@ urlpatterns = [
                        name='student_send_notification'),
                   path('hod/student/save_notification', hod_views.SAVE_STUDENT_NOTIFICATION,
                        name='save_student_notification'),
+                  path('hod/view/attendance', hod_views.VIEW_ATTENDANCE,
+                       name='view_attendance'),
 
                   path('hod/staff/leave_view', hod_views.STAFF_LEAVE_VIEW, name='staff_leave_view'),
                   path('hod/staff/approve_leave/<str:id>', hod_views.STAFF_APPROVE_LEAVE, name='staff_approve_leave'),
@@ -101,7 +103,8 @@ urlpatterns = [
                   path('staff/feedback', staff_views.STAFF_FEEDBACLK, name='staff_feedback'),
                   path('staff/feedback/save', staff_views.STAFF_FEEDBACK_SAVE, name='staff_feedback_save'),
                   path('staff/attendance', staff_views.ATTENDANCE, name='staff_attendance'),
-
+                  path('staff/attendance_save', staff_views.ATTENDANCE_REPORT, name='staff_attendance_report'),
+                  path('staff/view_attendance', staff_views.VIEW_ATTENDANCE, name='staff_attendance_view'),
 
                   #  This is Student  url
                   path('student/home', student_views.HOME, name='student_home'),
@@ -113,5 +116,7 @@ urlpatterns = [
                   path('student/apply_leave', student_views.STUDENT_APPLY_LEAVE, name='student_apply_leave'),
                   path('student/apply_leave_save', student_views.STUDENT_APPLY_LEAVE_SAVE,
                        name='student_apply_leave_save'),
+                  path('student/view_attendance', student_views.STUDENT_VIEW_ATTENDANCE,
+                       name='student_view_attendance'),
 
               ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

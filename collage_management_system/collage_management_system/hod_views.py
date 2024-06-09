@@ -597,3 +597,5 @@ def SAVE_STUDENT_NOTIFICATION(request):
         return redirect('student_send_notification')
 
 
+def VIEW_ATTENDANCE(request):
+    return render(request,'hod/view_attendance.html')
