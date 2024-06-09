@@ -105,6 +105,7 @@ urlpatterns = [
                   path('staff/attendance', staff_views.ATTENDANCE, name='staff_attendance'),
                   path('staff/attendance_save', staff_views.ATTENDANCE_REPORT, name='staff_attendance_report'),
                   path('staff/view_attendance', staff_views.VIEW_ATTENDANCE, name='staff_attendance_view'),
+                  path('staff/add/result', staff_views.STTAF_ADD_RESULT, name='staff_add_result'),
 
                   #  This is Student  url
                   path('student/home', student_views.HOME, name='student_home'),

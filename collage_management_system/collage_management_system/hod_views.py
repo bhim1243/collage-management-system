@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
-from collage_management_app.models import Course, Session_year, CustomUser, Student,Staff,Subject,Staff_Notification,Staff_Leave,Staff_Feedback,Student_Notification,Student_Feedback,Student_Leave
+from collage_management_app.models import Course, Session_year, CustomUser, Student,Staff,Subject,Staff_Notification,Staff_Leave,Staff_Feedback,Student_Notification,Student_Feedback,Student_Leave,Attendance,Attendance_Repory
 from django.contrib import messages
 
 @login_required(login_url='/')
@@ -598,4 +598,38 @@ def SAVE_STUDENT_NOTIFICATION(request):
 
 
 def VIEW_ATTENDANCE(request):
-    return render(request,'hod/view_attendance.html')
+
+    subjects = Subject.objects.all()
+    session_years = Session_year.objects.all()
+    action = request.GET.get('action')
+
+    get_subject = None
+    get_session_year = None
+    date = None
+    attendance_reports = None
+
+    if action is not None:
+        if request.method == "POST":
+            subject_id = request.POST.get('subject_id')
+            session_year_id = request.POST.get('session_year_id')
+            date = request.POST.get('date')
+
+            get_subject = Subject.objects.get(id=subject_id)
+            get_session_year = Session_year.objects.get(id=session_year_id)
+
+            attendance = Attendance.objects.filter(subject_id=get_subject, date=date)
+
+            for attendance in attendance:
+                attendance_id = attendance.id
+                attendance_reports = Attendance_Repory.objects.filter(Attendance_id=attendance_id)
+
+    context = {
+        'subjects': subjects,
+        'session_years': session_years,
+        'action': action,
+        'get_subject': get_subject,
+        'get_session_year': get_session_year,
+        'date': date,
+        'attendance_reports': attendance_reports,
+    }
+    return render(request,'hod/view_attendance.html',context)

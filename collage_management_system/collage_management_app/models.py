@@ -147,3 +147,13 @@ class Attendance_Repory(models.Model):
         return self.student_id.admin.first_name
 
 
+class StudentResult(models.Model):
+    student_id = models.ForeignKey(Student, on_delete=models.CASCADE)
+    subject_id = models.ForeignKey(Subject, on_delete=models.CASCADE)
+    assignment_mark = models.IntegerField()
+    exam_mark = models.IntegerField()
+    created_at = models.DateField(auto_now=True)
+    updated_at = models.DateField(auto_now=True)
+
+    def __str__(self):
+        return self.student_id.admin.first_name

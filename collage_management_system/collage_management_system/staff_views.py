@@ -171,7 +171,7 @@ def VIEW_ATTENDANCE(request):
             for attendance in attendance:
                 attendance_id = attendance.id
                 attendance_reports = Attendance_Repory.objects.filter(Attendance_id=attendance_id)
-                print(attendance_reports)
+
     context= {
         'subjects':subjects,
         'session_years':session_years,
@@ -183,3 +183,41 @@ def VIEW_ATTENDANCE(request):
     }
 
     return render(request,'staff/view_attendance.html',context)
+
+
+def STTAF_ADD_RESULT(request):
+    staff = Staff.objects.get(admin= request.user.id)
+    subjects = Subject.objects.filter(staff_id = staff)
+    session_years = Session_year.objects.all()
+    action = request.GET.get('action')
+
+    get_subject =None
+    get_session =None
+    students= None
+
+    if action is not None:
+        if request.method == "POST":
+
+            subject_id = request.POST.get('subject_id')
+            session_year_id = request.POST.get('session_year_id')
+
+            get_subject = Subject.objects.get(id= subject_id)
+            get_session = Session_year.objects.get(id=session_year_id)
+
+            subjects = Subject.objects.filter(id=subject_id)
+            for subject in subjects:
+                student_id = subject.course.id
+                students = Student.objects.filter(course_id = student_id)
+
+
+
+
+    context= {
+        'subjects':subjects,
+        'session_years':session_years,
+        'action':action,
+        'get_subject':get_subject,
+        'get_session':get_session,
+        'students':students,
+    }
+    return render(request,'staff/add_result.html',context)
