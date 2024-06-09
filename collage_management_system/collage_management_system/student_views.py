@@ -1,5 +1,5 @@
 from django.shortcuts import render,redirect
-from collage_management_app.models import Student_Notification,Student,Student_Feedback,Student_Leave,Subject,Attendance,Attendance_Repory
+from collage_management_app.models import Student_Notification,Student,Student_Feedback,Student_Leave,Subject,Attendance,Attendance_Repory,StudentResult
 from django.contrib import messages
 def HOME(request):
     return render(request,'student/home.html')
@@ -98,3 +98,19 @@ def STUDENT_VIEW_ATTENDANCE(request):
     }
 
     return render(request, 'student/view_attendance.html', context)
+
+
+def STUDENT_VIEW_RESULT(request):
+    mark = None
+    student = Student.objects.get(admin= request.user.id)
+    results =StudentResult.objects.filter(student_id= student)
+    for result in results:
+        assignment_mark = result.assignment_mark
+        exam_mark =result.exam_mark
+        mark = assignment_mark + exam_mark
+
+    context = {
+       'results':results,
+        'mark':mark
+    }
+    return render(request,'student/view_result.html',context)

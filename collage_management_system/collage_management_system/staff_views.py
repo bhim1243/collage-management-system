@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from collage_management_app.models import Staff, Staff_Notification, Staff_Leave, Staff_Feedback, Subject, Session_year,Student,Attendance,Attendance_Repory
+from collage_management_app.models import Staff, Staff_Notification, Staff_Leave, Staff_Feedback, Subject, Session_year,Student,Attendance,Attendance_Repory,StudentResult
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 
@@ -221,3 +221,37 @@ def STTAF_ADD_RESULT(request):
         'students':students,
     }
     return render(request,'staff/add_result.html',context)
+
+
+def STTAF_SAVE_RESULT(request):
+    if request.method == "POST":
+        subject_id = request.POST.get('subject_id')
+        student_id = request.POST.get('student_id')
+        session_year_id = request.POST.get('session_year_id')
+        assignment_mark = request.POST.get('assignment_mark')
+        exam_mark = request.POST.get('exam_mark')
+
+        get_subject = Subject.objects.get(id=subject_id)
+        get_student = Student.objects.get(id=student_id)
+
+
+        check_exists = StudentResult.objects.filter(subject_id=get_subject, student_id=get_student).exists()
+        if check_exists:
+            result = StudentResult.objects.get(subject_id=get_subject, student_id=get_student)
+            result.assignment_mark = assignment_mark
+            result.exam_mark = exam_mark
+            result.save()
+            messages.success(request, 'Result Are Successfully update !')
+            return redirect('staff_add_result')
+        else:
+            result = StudentResult(
+                student_id=get_student,
+                subject_id=get_subject,
+                exam_mark=exam_mark,
+                assignment_mark=assignment_mark,
+            )
+            result.save()
+            messages.success(request, 'Result Are Successfully Added !')
+            return redirect('staff_add_result')
+
+    return redirect('staff_add_result')
