@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>College Management System</title>
+</head>
+<body style="margin: 0; font-family: Arial, sans-serif;">
+
+    <!-- Navbar -->
+    <nav style="display: flex; justify-content: space-between; align-items: center; background-color: #2c3e50; padding: 1rem 2rem; color: white; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);">
+        <div style="display: flex; align-items: center;">
+            <a href="#" style="color: white; text-decoration: none; font-size: 1.5rem; font-weight: bold;">College Management</a>
+            <button id="toggle-btn" onclick="toggleNavbar()" style="display: none; background: none; border: none; font-size: 1.5rem; color: white; cursor: pointer; margin-left: 1rem;">☰</button>
+        </div>
+        <ul id="navbar-links" style="list-style: none; display: flex; margin: 0; padding: 0;">
+            <li style="margin-left: 1.5rem;"><a href="/dashboard" style="color: white; text-decoration: none; font-size: 1rem;">Dashboard</a></li>
+            <li style="margin-left: 1.5rem;"><a href="/courses" style="color: white; text-decoration: none; font-size: 1rem;">Courses</a></li>
+            <li style="margin-left: 1.5rem;"><a href="/students" style="color: white; text-decoration: none; font-size: 1rem;">Students</a></li>
+            <li style="margin-left: 1.5rem;"><a href="/teachers" style="color: white; text-decoration: none; font-size: 1rem;">Teachers</a></li>
+            <li style="margin-left: 1.5rem;"><a href="/profile" style="color: white; text-decoration: none; font-size: 1rem;">Profile</a></li>
+            <li style="margin-left: 1.5rem;"><a href="{%url 'login'%}" style="background-color: #e74c3c; padding: 0.5rem 1rem; border-radius: 5px; color: white; font-weight: bold; text-decoration: none;">Logout</a></li>
+        </ul>
+    </nav>
+
+    <!-- Slider Section -->
+    <div style="width: 100%; overflow: hidden; position: relative; margin-top: 1rem;">
+        <div id="slider-container" style="display: flex; transition: transform 0.5s ease-in-out;">
+            <div style="flex-shrink: 0; width: 100%;"><img src="https://via.placeholder.com/1200x400?text=Slide+1" alt="Slide 1" style="width: 100%;"></div>
+            <div style="flex-shrink: 0; width: 100%;"><img src="https://via.placeholder.com/1200x400?text=Slide+2" alt="Slide 2" style="width: 100%;"></div>
+            <div style="flex-shrink: 0; width: 100%;"><img src="https://via.placeholder.com/1200x400?text=Slide+3" alt="Slide 3" style="width: 100%;"></div>
+        </div>
+        <button onclick="prevSlide()" style="position: absolute; top: 50%; left: 10px; transform: translateY(-50%); background: rgba(0, 0, 0, 0.5); color: white; border: none; padding: 10px; cursor: pointer;">&#10094;</button>
+        <button onclick="nextSlide()" style="position: absolute; top: 50%; right: 10px; transform: translateY(-50%); background: rgba(0, 0, 0, 0.5); color: white; border: none; padding: 10px; cursor: pointer;">&#10095;</button>
+    </div>
+
+    <!-- Example Content -->
+    <div style="padding: 2rem;">
+        <h1>Welcome to the College Management System!</h1>
+        <p>This is a sample page to demonstrate the navbar and slider functionality.</p>
+    </div>
+
+    <script>
+        let currentSlide = 0;
+
+        function showSlide(index) {
+            const sliderContainer = document.getElementById('slider-container');
+            const totalSlides = sliderContainer.children.length;
+            currentSlide = (index + totalSlides) % totalSlides; // Loop slides
+            sliderContainer.style.transform = `translateX(-${currentSlide * 100}%)`;
+        }
+
+        function nextSlide() {
+            showSlide(currentSlide + 1);
+        }
+
+        function prevSlide() {
+            showSlide(currentSlide - 1);
+        }
+
+        // Optional: Auto-slide every 5 seconds
+        setInterval(nextSlide, 5000);
+    </script>
+</body>
+<!-- Footer Section -->
+<footer style="background-color: #2c3e50; color: white; padding: 1.5rem 2rem; text-align: center; margin-top: 2rem;">
+    <div>
+        <p style="margin: 0; font-size: 1rem;">&copy; 2024 College Management System. All Rights Reserved.</p>
+    </div>
+    <div style="margin-top: 1rem;">
+        <a href="/privacy" style="color: white; text-decoration: none; margin: 0 1rem; font-size: 0.9rem;">Privacy Policy</a>
+        <a href="/terms" style="color: white; text-decoration: none; margin: 0 1rem; font-size: 0.9rem;">Terms of Service</a>
+        <a href="/contact" style="color: white; text-decoration: none; margin: 0 1rem; font-size: 0.9rem;">Contact Us</a>
+    </div>
+    <div style="margin-top: 1rem;">
+        <p style="margin: 0; font-size: 0.9rem;">Follow us on:</p>
+        <a href="https://facebook.com" target="_blank" style="color: white; text-decoration: none; margin: 0 0.5rem;">Facebook</a>
+        <a href="https://twitter.com" target="_blank" style="color: white; text-decoration: none; margin: 0 0.5rem;">Twitter</a>
+        <a href="https://instagram.com" target="_blank" style="color: white; text-decoration: none; margin: 0 0.5rem;">Instagram</a>
+    </div>
+</footer>
+
+</html>

@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from django.http import HttpResponse
+from django.http import HttpResponse, request
 from collage_management_app.EmailBackEnd import EmailBackEnd
 from django.contrib.auth import authenticate, logout, login
 from django.contrib import messages
@@ -81,3 +81,8 @@ def PROFILE_UPDATE(request):
             messages.error(request, 'Failed to update your profile')
 
     return render(request, 'profile.html')
+
+
+def home_view(request ):
+
+ return render(request, 'home.html')

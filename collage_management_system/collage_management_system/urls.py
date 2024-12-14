@@ -23,7 +23,8 @@ from . import views, hod_views, staff_views, student_views
 urlpatterns = [
                   path('admin/', admin.site.urls),
                   path('base/', views.base_view, name='base'),
-                  path('', views.LOGIN, name='login'),
+                  path('', views.home_view, name='home'),
+                  path('login/', views.LOGIN, name='login'),
                   path('dologin', views.dologin, name='dologin'),
                   path('dologout', views.dologout, name='logout'),
 
