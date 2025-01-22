@@ -25,7 +25,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'collage_management_app',
-    'active_link',
+      'active_link'
 
 
 ]

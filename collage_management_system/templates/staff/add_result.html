@@ -43,7 +43,7 @@
                            <div class="col-12 col-sm-6">
                                 <label> Subject</label>
                                 <select class="form-control" name="session_year_id" required>
-                                    <option>---Select Subjcet---</option>
+                                    <option>---Select session_years---</option>
                                     {% if session_years %}
                                     {% for session_year in session_years %}
                                     <option value="{{ session_year.id }}">{{ session_year.session_start}}TO {{ session_year.session_end}}</option>
