@@ -666,3 +666,30 @@ def DOWNLOAD_STUDENT(request):  # Add the 'request' argument
         ])
 
     return response
+
+
+def DOWNLOAD_STAFF(request):
+    # Define the response as a CSV file
+    response = HttpResponse(content_type='text/csv')
+    response['Content-Disposition'] = 'attachment; filename="staff.csv"'
+
+    # Create a CSV writer
+    writer = csv.writer(response)
+    writer.writerow(['ID', 'Name', 'Email', 'Gender', 'Address', 'Created At', 'Updated At'])
+
+    # Fetch staff data
+    staff_members = Staff.objects.all()
+
+    # Write staff data to the CSV
+    for staff in staff_members:
+        writer.writerow([
+            staff.id,
+            f"{staff.admin.first_name} {staff.admin.last_name}",
+            staff.admin.email,
+            staff.gender,
+            staff.address,
+            staff.created_at,
+            staff.updated_at
+        ])
+
+    return response

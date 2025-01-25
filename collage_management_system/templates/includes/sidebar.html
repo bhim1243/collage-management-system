@@ -54,6 +54,13 @@
                         <li><a href="{%url 'view_session'%}"> view Session </a></li>
                     </ul>
                 </li>
+                 <li class="submenu {% active_link 'add_Result' 'active'%} {% active_link 'view_Result' 'active'%}">
+                    <a href="#"><i class="fa fa-book"></i> <span> Results</span> <span class="menu-arrow"></span></a>
+                    <ul>
+                        <li><a href="">  Add Result </a></li>
+                        <li><a href=""> view Result </a></li>
+                    </ul>
+                </li>
                 <li class="{% active_link 'staff_send_notification' 'active'%}">
                     <a href="{%url 'staff_send_notification'%}"><i class="fa fa-bell"></i> <span>Send Staff Notification</span></a>
                 </li>
