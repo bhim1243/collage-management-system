@@ -1,7 +1,11 @@
+import csv
+
+from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from collage_management_app.models import Course, Session_year, CustomUser, Student,Staff,Subject,Staff_Notification,Staff_Leave,Staff_Feedback,Student_Notification,Student_Feedback,Student_Leave,Attendance,Attendance_Repory
 from django.contrib import messages
+
 
 @login_required(login_url='/')
 def HOME(request):
@@ -633,3 +637,32 @@ def VIEW_ATTENDANCE(request):
         'attendance_reports': attendance_reports,
     }
     return render(request,'hod/view_attendance.html',context)
+
+
+def DOWNLOAD_STUDENT(request):  # Add the 'request' argument
+    # Define the response as a CSV file
+    response = HttpResponse(content_type='text/csv')
+    response['Content-Disposition'] = 'attachment; filename="students.csv"'
+
+    # Create a CSV writer
+    writer = csv.writer(response)
+    writer.writerow(['ID', 'Name', 'Email', 'Course', 'Gender', 'Address', 'Session Year', 'Created At', 'Updated At'])
+
+    # Fetch student data
+    students = Student.objects.all()
+
+    # Write student data to the CSV
+    for student in students:
+        writer.writerow([
+            student.id,
+            f"{student.admin.first_name} {student.admin.last_name}",
+            student.admin.email,
+            student.course_id.name if student.course_id else '',
+            student.gender,
+            student.address,
+            f"{student.session_year_id.session_start} TO {student.session_year_id.session_end}" if student.session_year_id else '',
+            student.created_at,
+            student.updated_at
+        ])
+
+    return response

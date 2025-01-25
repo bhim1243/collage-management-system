@@ -39,6 +39,7 @@ urlpatterns = [
                   path('hod/student/edit/<str:id>', hod_views.EDIT_STUDENT, name='edit_student'),
                   path('hod/student/update/', hod_views.UPDATE_STUDENT, name='update_student'),
                   path('hod/student/delete/<str:admin>', hod_views.DELETE_STUDENT, name='delete_student'),
+                  path('hod/student/download', hod_views.DOWNLOAD_STUDENT, name='download_student'),
 
                   # this is staff panel
                   path('hod/staff/add', hod_views.ADD_STAFF, name='add_staff'),
